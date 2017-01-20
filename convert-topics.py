@@ -15,7 +15,7 @@ def output(query_data, output_format):
 		print('</parameters>')
 	elif output_format == 'tsv':
 		for query in query_data['queries']:
-			print('\t'.join([query['title'], query['text']]))
+			print('\t'.join([query['title'], query['text']]).encode('utf-8'))
 	else:
 		sys.stderr.write('Output format "{}" not recognized. Try --help.'.format(output_format))
 
