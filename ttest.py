@@ -21,6 +21,14 @@ def get_data(out, comp_metric):
 				data[query] = float(value)
 	return [value for (key, value) in sorted(data.items())]
 
+def print_ttest(data1, data2, greater):
+	ttest_results = ttest_rel(data1, data2)
+	if (greater):
+		res = ttest_results[1]/2
+	else:
+		res = ttest_results[1]
+	print('p-value: {}'.format(res))
+
 def main():
 	options = argparse.ArgumentParser(description='Run a t-test comparing two indri runs.')
 	required = options.add_argument_group('required arguments')
@@ -47,12 +55,7 @@ def main():
 	print('\n{}: {}'.format(args.file[0], numpy.mean(d1)))
 	print('{}: {}\n'.format(args.file[1], numpy.mean(d2)))
 
-	ttest_results = ttest_rel(d1, d2)
-	if (args.greater):
-		res = ttest_results[1]/2
-	else:
-		res = ttest_results[1]
-	print('p-value: {}'.format(res))
+	print_ttest(d1, d2, args.greater)
 
 if __name__ == '__main__':
 	main()
